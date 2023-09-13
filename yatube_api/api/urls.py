@@ -1,13 +1,16 @@
 from django.urls import include, path
-from rest_framework.routers import SimpleRouter
+from rest_framework import routers
 from rest_framework.authtoken import views
 
 
-from .views import PostViewSet
+from .views import CommentViewSet, GroupViewSet, PostViewSet
 
 
-router = SimpleRouter()
-router.register('posts', PostViewSet, basename='posts')  # получаем список всех постов или создаём новый пост
+router = routers.DefaultRouter()
+router.register('posts', PostViewSet, basename='posts')
+router.register('groups', GroupViewSet, basename='groups')
+router.register(r'posts/(?P<post_id>\d+)/comments/',
+                CommentViewSet, basename='comments')
 
 
 urlpatterns = [
