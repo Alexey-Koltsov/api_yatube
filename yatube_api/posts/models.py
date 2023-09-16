@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from .constants import SIMBOLS_QUANTITY
+
 User = get_user_model()
 
 
@@ -10,7 +12,7 @@ class Group(models.Model):
     description = models.TextField('Описание')
 
     def __str__(self):
-        return self.title[:30]
+        return self.title[:SIMBOLS_QUANTITY]
 
 
 class Post(models.Model):
@@ -39,7 +41,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text[:30]
+        return self.text[:SIMBOLS_QUANTITY]
 
 
 class Comment(models.Model):
@@ -61,4 +63,5 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.text[:30]
+        return (f'Для поста {self.post[:SIMBOLS_QUANTITY]}...'
+                f' {self.author} комментирует: {self.text[:SIMBOLS_QUANTITY]}')
